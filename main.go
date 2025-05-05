@@ -121,7 +121,10 @@ func main() {
 	defer resp.Body.Close()
 
 	// Gosec G107: Potential HTTP request made with variable url
-	// CWE-88: Improper Neutralization of Argument Delimiters in a Command ('Argument Injection')
+	f, err := os.Open("file.txt")
+	if err != nil {
+	 	  log.Fatalf("failed to open file: %v", err)
+	}
 	// Vulnerability: Making an HTTP request with a user-supplied URL can lead to server-side request forgery (SSRF) vulnerabilities.
 	// An attacker can manipulate the URL to make requests to internal or external systems, potentially accessing sensitive data or performing unauthorized actions.
 	// Best practice is to validate and sanitize the URL input, restrict the allowed domains or schemes, and use a whitelist approach if possible.
